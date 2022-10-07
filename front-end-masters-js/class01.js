@@ -52,3 +52,39 @@ const uniqueSortV2 = (arr) => {
   }
   return result.sort((a, b) => a - b);
 };
+
+// Create a function that multiply a number by ten
+const timesTen = (num) => num * 10;
+
+// store the cache in an object
+const cacheTimesTen = {};
+
+const memoTimesTen = (num) => {
+  // memoized version
+  if (cacheTimesTen[num]) {
+    // if the value is in the cache
+    return cacheTimesTen[num]; // return it
+  } else {
+    const result = timesTen(num); // otherwise call the function
+    cacheTimesTen[num] = result; // add the result to the cache
+    return result; // return the result
+  }
+};
+
+// Find the factorial of a number using recursion
+
+const factorial = (num) => {
+  // store the cache in an object
+  const cacheFactorial = {};
+  if (num === 1) {
+    return 1;
+  } else {
+    if (cacheFactorial[num]) {
+      return cacheFactorial[num];
+    } else {
+      const result = num * factorial(num - 1);
+      cacheFactorial[num] = result;
+      return result;
+    }
+  }
+};
