@@ -1,3 +1,5 @@
+<?php
+
 // There is a large pile of socks that must be paired by color.
 // Given an array of integers representing the color of each sock,
 // determine how many pairs of socks with matching colors there are.
@@ -17,19 +19,21 @@
 // 7. Increment the index by 1
 // 8. Return the pairs variable
 
-const ar = [1, 2, 1, 2, 1, 3, 2];
-const n = ar.length;
+$ar = [1,2,1,2,1,3,2];
+$n = count($ar); // determine the number of elements in the array
 
-const sockMerchant = (n, ar) => {
-  let pairs = 0;
-  let sorted = ar.sort((a, b) => a - b); // Sort the array in ascending order
-  for (let i = 0; i < n; i++) {
-    // loop through the array
-    if (sorted[i] === sorted[i + 1]) {
-      // If the current element is equal to the next element
-      pairs++; // Increment the pairs variable by 1
-      i++;
+function sockMerchant($n, $ar) {
+    $pairs = 0; // variable to store the number of pairs
+    sort($ar); // sort the array in ascending order, this is great in php
+    for($i = 0; $i < $n; $i++){ // loop through the array
+        if($ar[$i] == $ar[$i + 1]){
+            $pairs++;
+            $i++;
+        }
     }
-  }
-  return pairs;
-};
+    return $pairs;
+}
+
+
+
+?>
