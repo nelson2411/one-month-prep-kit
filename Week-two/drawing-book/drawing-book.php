@@ -23,7 +23,17 @@
 
 // Function must return an integer denoting the minimum number of pages to turn.
 
+$n = 7;
+$p = 4;
 
+function pageCount($n, $p) {
+    // find the number of pages from the front
+    $front = floor($p / 2);
+    // find the number of pages from the back
+    $back = floor($n / 2) - $front;
+    // return the minimum number of pages
+    return min($front, $back);
+}
 
 
 
