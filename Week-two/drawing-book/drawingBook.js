@@ -25,6 +25,7 @@
 const n = 7;
 const p = 4;
 
+// the big O notation of this algorithm is O(1)
 const pageCount = (n, p) => {
   // find the number of pages from the front
   const pagesFromFront = Math.floor(p / 2);
