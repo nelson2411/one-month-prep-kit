@@ -26,3 +26,22 @@ const bubbleSort = (arr) => {
   }
   return arr;
 };
+
+// second approach excluding the last element from the loop
+// The big O notation of this algorithm is O(n^2)
+const bubbleSortTwo = (arr) => {
+  for (let i = 0; i < arr.length; i++) {
+    // we reduce the number of iterations by one
+    // we exclude the last element from the loop
+    for (let j = 0; j < arr.length - 1 - i; j++) {
+      // If the current element is greater than the next element, we swap them
+      if (arr[j] > arr[j + 1]) {
+        // we compare each element with the next element
+        let temp = arr[j];
+        arr[j] = arr[j + 1];
+        arr[j + 1] = temp;
+      }
+    }
+  }
+  return arr;
+};
