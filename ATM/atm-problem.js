@@ -13,7 +13,9 @@
 // - 8x200
 // - 2x100
 
-// You will make seven withdrawals the specified order. Note that based on the rules listed earlier some of the withdrawals should be declined by the ATM:
+// You will make seven withdrawals the specified order.
+// Note that based on the rules listed earlier some of the withdrawals
+// should be declined by the ATM:
 // 1. 1600
 // 2. 800
 // 3. 400
@@ -24,63 +26,53 @@
 // 7. 700
 // 7. 100
 
-// When all of these withdrawals are completed the ATM is expected to be completely empty of bills and will not have given out more money than it contained at the start. Try to write a general solution that will also work with different amounts of bills, different types of bills and different withdrawal amounts than in the example give.
-
+/* When all of these withdrawals are completed the ATM is expected 
+to be completely empty of bills and will not have given out more money 
+than it contained at the start. Try to write a general solution that 
+will also work with different amounts of bills, different types of bills 
+and different withdrawal amounts than in the example give.
+*/
 // approach two
 // Using meoization and recursion
 
 let denominations = {
-  1000: 2,
-  500: 3,
-  200: 8,
-  100: 2,
+  2: 1000,
+  3: 500,
+  8: 200,
+  2: 100,
 };
 
 const withdrawals = [1600, 800, 400, 800, 300, 1000, 600, 700, 100];
 
-class ATM {
-  constructor(denominations, withdrawals) {
-    this.denominations = {
-      1000: 2,
-      500: 3,
-      200: 8,
-      100: 2,
-    };
-    this.withdrawals = [1600, 800, 400, 800, 300, 1000, 600, 700, 100];
-  }
+//Sum the total amount of money in the ATM
+const totalAmount = Object.keys(denominations).reduce((acc, key) => {
+  return acc + denominations[key] * key;
+}, 0);
+console.log(totalAmount);
 
-  makeChange(amount) {
-    if (amount === 0) {
-      return [];
-    }
-    if (amount < 0) {
-      return null;
-    }
-    let minBills;
-    for (let bill in this.denominations) {
-      if (this.denominations[bill] > 0) {
-        this.denominations[bill]--;
-        let currMinBills = this.makeChange(amount - bill);
-        this.denominations[bill]++;
-        if (currMinBills !== null) {
-          currMinBills = [...currMinBills, bill];
-          if (!minBills || currMinBills.length < minBills.length) {
-            minBills = currMinBills;
-          }
-        }
-      }
-    }
-    return minBills;
+//Check if the ATM has enough money to give out
+const checkATM = (withdrawal) => {
+  if (withdrawal > totalAmount) {
+    return false;
+  } else {
+    return true;
   }
+};
 
-  withdraw() {
-    this.withdrawals.forEach((amount) => {
-      let bills = this.makeChange(amount);
-      if (bills) {
-        console.log(`Dispensing ${bills.join(" + ")} for $${amount}`);
-      } else {
-        console.log(`Insufficient funds for $${amount}`);
-      }
-    });
+const ATM = (withdrawals) => {
+  let billsRemainingInATM = denominations;
+  // Check if the ATM has enough money to give out
+  if (checkATM(withdrawals)) {
+    //Loop through the withdrawals
+    for (let i = 0; i < withdrawals.length; i++) {
+      let withdrawal = withdrawals[i];
+      let bills = [];
+      // billsRemainingInATM should be an object
+      // Key is the number of bills
+      // Value is the denomination
+      let billsRemainingInATM = denominations;
+      //Loop through the bills
+      for (let j = 0; j < billsRemainingInATM.length; j++) {}
+    }
   }
-}
+};
