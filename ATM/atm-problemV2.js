@@ -38,59 +38,66 @@ and different withdrawal amounts than in the example give.
 // Using meoization and recursion
 */
 
-let denominations = {
-  2: 1000,
-  3: 500,
-  8: 200,
-  2: 100,
-};
+const denominations = {
+  1000: 2,
+  500: 3,
+  200: 8,
+  100: 2,
+}
 
-const withdrawals = [1600, 800, 400, 800, 300, 1000, 600, 700, 100];
+const amount = [1600, 800, 400, 800, 300, 1000, 600, 700, 100]
 
-//Sum the total amount of money in the ATM
-const totalAmount = Object.keys(denominations).reduce((acc, key) => {
-  return acc + denominations[key] * key;
-}, 0);
-console.log(totalAmount);
+const atm = (amount, denominations) => {
+  // calculate the total amount of money in the ATM
 
-/* Possible solution written in pseudocode
-1. Check if the ATM has enough money to give out
-2. check the first withdrawal in the array and see if it can be given out
-3. if it can be given out, check the smallest amount of bills possible
-4. Store the bills used for a withdrawal in an object,
-where the key is the bill and the value is the amount of bills used.
-5. Remove the bills used for a withdrawal from the ATM.
-6. Check the next withdrawal in the array and see if it can be given out
-7. if it can be given out, check the smallest amount of bills possible
-8. Store the bills used for a withdrawal in an object,
-where the key is the bill and the value is the amount of bills used.
-9. Remove the bills used for a withdrawal from the ATM.
-10. Repeat steps 6-9 until all withdrawals are completed
-11. Function should return an object with the bills used for each withdrawal
+  const totalAmount = Object.keys(denominations).reduce((acc, curr) => {
+    return acc + denominations[curr] * curr
+  }, 0)
+  console.log(totalAmount)
 
-in pseudocode: 
+  // check if the ATM has enough money to give out the current amount
 
-function atm(withdrawals: array, denominations: object) {
-  for let i = 0; i < withdrawals.length; i++ {
-    if withdrawals[i] > totalAmount {
-      return "ATM does not have enough money to give out"
-    } else {
-      let bills = denomitanions;
-      for let j = 0; j < Object.values(bills).length; j++ {
-        if withdrawals[i] % Object.values(bills)[j] === 0 {
-          let amountOfBills = withdrawals[i] / Object.values(bills)[j];
-          let bill = Object.values(bills)[j];
-          let billsUsed = {bill: amountOfBills};
-          let newBills = Object.values(bills).splice(j, 1);
-          let newDenominations = {newBills};
-          return billsUsed;
-        }
-      }
+  if (amount[0] > totalAmount) {
+    return "ATM does not have enough money"
+  }
 
+  // Initialize an object to store the bills used for the withdrawal
+
+  const bills = {}
+
+  // itirate through the denominations object and check if the current withdrawal
+  // amount is divisible by each bill value
+
+  for (const [count, bill] of Object.entries(denominations)) {
+    if (amount[0] % bill === 0) {
+      // calculate the number of bills needed
+      let numberOfBills = amount[0] / bill
+
+      // add the bill and the number of bills used to the bills object
+      bills[bill] = numberOfBills
+
+      // remove the bills used from the ATM
+      delete denominations[count]
+      break
     }
-    
+  }
+
+  // Recursively call the atm function with the remaining amount
+  // and the remaining bills in the ATM
+
+  let results = atm(amount.slice(1), denominations)
+
+  // if the results is an string return the string
+  if (typeof results === "string") {
+    return results
+  }
+
+  // Otherwise, add the bills used for the current withdrawal to the results and return the results
+  else {
+    return { ...results, ...bills }
   }
 }
 
+let results = atm(amount, denominations)
 
-*/
+console.log(results)
