@@ -24,30 +24,29 @@ Returns
 string: the encrypted string
 */
 
-let s = "All-I-need-is-love";
-const k = 3;
+let s = "All-I-Need-is-Love"
+const k = 3
 
 const caesarCipher = (s, k) => {
-  let alphabet = "abcdefghijklmnopqrstuvwxyz"; //abcdefghijklmnopqrstuvwxyz
-  let UpperCaseAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; //ABCDEFGHIJKLMNOPQRSTUVWXYZ
-  let encrypted = "";
-  // hyphen is not encrypted
-
+  let alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+  let encrypted = ""
   for (let i = 0; i < s.length; i++) {
-    if (s[i] === "-") {
-      encrypted += "-";
-    } else if (s[i] === s[i].toUpperCase()) {
-      //
-      // if the letter is uppercase
-      let index = UpperCaseAlphabet.indexOf(s[i]);
-      let newIndex = (index + k) % 26;
-      encrypted += UpperCaseAlphabet[newIndex];
+    // we iterate through the string in order to get each letter
+    let letter = s[i] // we get the letter
+    if (alphabet.includes(letter)) {
+      // we check if the letter is in the alphabet
+      let index = alphabet.indexOf(letter) // we get the index of the letter in the alphabet
+      let newIndex = (index + k) % 26 // we add the rotation factor to the index
+      let newLetter = alphabet[newIndex] // we get the new letter from the alphabet
+      if (letter === letter.toUpperCase()) {
+        // if the letter is uppercase, we return the new letter in uppercase
+        encrypted += newLetter.toUpperCase() // we add the new letter to the encrypted string
+      } else {
+        encrypted += newLetter // we add the new letter to the encrypted string
+      }
     } else {
-      // if the letter is lowercase
-      let index = alphabet.indexOf(s[i]);
-      let newIndex = (index + k) % 26;
-      encrypted += alphabet[newIndex];
+      encrypted += letter // we add the symbol to the encrypted string
     }
   }
-  return encrypted;
-};
+  return encrypted
+}
