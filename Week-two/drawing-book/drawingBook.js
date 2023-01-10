@@ -22,15 +22,29 @@
 
 // Function must return an integer denoting the minimum number of pages to turn.
 
-const n = 7;
-const p = 4;
+const n = 7
+const p = 4
 
 // the big O notation of this algorithm is O(1)
 const pageCount = (n, p) => {
   // find the number of pages from the front
-  const pagesFromFront = Math.floor(p / 2);
+  const pagesFromFront = Math.floor(p / 2)
   // find the number of pages from the back
-  const pagesFromBack = Math.floor(n / 2) - pagesFromFront;
+  const pagesFromBack = Math.floor(n / 2) - pagesFromFront
   // return the minimum number of pages
-  return Math.min(pagesFromFront, pagesFromBack);
-};
+  return Math.min(pagesFromFront, pagesFromBack)
+}
+
+/* 
+Writing the code in pseudocode:
+
+n = 7
+p = 4
+
+function pageCount(n, p)
+  pagesFromFront = floor(p / 2)
+  pagesFromBack = floor(n / 2) - pagesFromFront
+  return the minimum number of pages
+END FUNCTION
+
+*/
