@@ -41,3 +41,28 @@ const circularArrayRotation = (a, k, queries) => {
 }
 
 console.log(circularArrayRotation(a, k, queries))
+
+/*
+
+Writing this algorithm in pseudocode:
+ a = [1, 2, 3]
+  k = 2
+  queries = [0, 1, 2]
+
+  function circularArrayRotation(a, k, queries) 
+    result = []
+    Repeat starting with i = 0 until reaching k incrementing by 1 do
+      a.unshift(a.pop())
+      end Repeat
+    Repeat starting with i = 0 until reaching queries.length incrementing by 1 do
+      result.push(a[queries[i]])
+      end Repeat
+    return result
+  end function
+
+
+
+
+
+
+*/
